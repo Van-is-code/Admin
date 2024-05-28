@@ -1,0 +1,53 @@
+.function {
+    width: 500px;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+button.btn_add {
+    position: absolute;
+    float: right;
+    margin-top: -2%;
+    border: 2px solid #007bff;
+    border-radius: 12px;
+    /* background-color: #007bff; */
+    width: 100px;
+    height: 60px;
+   
+}
+button.btn_add:hover {
+    background-color: #007bff;
+}
+p.text-primary.m-0.fw-bold{
+    width: 30%;
+}
+/* Định nghĩa lớp tooltip */
+#tooltip {
+    position: relative;
+    display: inline-block;
+  }
+  
+  /* Ẩn nội dung tooltip */
+#tooltip .tooltiptext {
+  visibility: hidden;
+  width: 90px;
+  background-color: #cbccced8;
+  color: #000000;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 100%; /* Vị trí tooltip */
+  left: 50%;
+  transform: translateX(-50%); /* Canh chỉnh vị trí giữa tooltip */
+  margin-bottom: 5px; /* Điều chỉnh khoảng cách giữa tooltip và icon */
+  opacity: 0; /* Độ trong suốt */
+  transition: opacity 0.1s; /* Hiệu ứng chuyển đổi */
+}
+  
+  /* Hiển thị tooltip khi di chuột vào */
+  #tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 0.8;
+  }
