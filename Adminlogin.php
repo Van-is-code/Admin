@@ -1,20 +1,32 @@
-
 <?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  $username = $_POST["username"];
-  $password = $_POST["password"];
 
-  // Validate username and password
-  if ($username == "admin" && $password == "admin123") {
-    // Redirect to admin.php if credentials are correct
-    header("Location: admin.php");
-    exit;
+//Login
+require_once "./config/database.php";
+$error = '';
+session_start();
+
+if($_SERVER["REQUEST_METHOD"] == "POST") {
+  //get username && password
+  $username = $_POST['username'];
+  $password = $_POST['password'];
+
+  $sql = "SELECT Username, password FROM admin WHERE Username = '$username' AND password = '$password'";
+  $result = $conn->query($sql);
+
+  if ($result->num_rows > 0) {
+    //OK
+    if($row = $result->fetch_assoc()) {
+      $_SESSION['login_user'] = $row['Name'];
+      header("location: admin.php");
+    }
   } else {
-    // Display error message if credentials are incorrect
-    $errorMessage = "Invalid username or password";
-    header("Refresh: 3;"); // Redirect to login page after 3 seconds
+    $error = "Username and Password invalid";
   }
+
+  $conn->close();
 }
+
+
 ?>
 
 <html>
@@ -28,34 +40,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <div>
   <div class="login-box">
-    <form method="POST">
-      <i class="fa-light fa-key"></i>
-      <img src="./img/admin1.png" class="admin">
-      <h1>Admin</h1>
-      <div class="user-box">
-        <input type="text" name="username" required="">
-        <label>Username</label>
-      </div>
-      <div class="user-box">
-        <input type="password" name="password" required="">
-        <label>Password</label>
-      </div>
-      <center>
-        <button type="submit">
-          SEND
-          <span></span>
-        </button>
-      </center>
-      <?php if (isset($errorMessage)): ?>
-        <p style="color: red;"><?php echo $errorMessage; ?></p>
+  <form method="POST">
+    <i class="fa-light fa-key"></i>
+    <img src="./img/admin1.png" class="admin">
+    <h1>Admin</h1>
+    <div class="user-box">
+    <input type="text" name="username" required="">
+    <label>Username</label>
+    </div>
+    <div class="user-box">
+    <input type="password" name="password" required="">
+    <label>Password</label>
+    </div>
+    <center>
+    <button type="submit">
+      SEND
+      <span></span>
+    </button>
+    </center>
+    <?php if (isset($error)): ?>
+      <p class="error" style="color: red;"><?php echo $error; ?></p>
       <?php endif; ?>
-    </form>
+      <script>
+        setTimeout(function(){
+          document.querySelector('.error').style.display = 'none';
+        }, 2000);
+      </script>
+  </form>
   </div>
 </div>
 </body>
 </html>
-
-
-
-
-
