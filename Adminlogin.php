@@ -7,25 +7,28 @@ session_start();
 
 if($_SERVER["REQUEST_METHOD"] == "POST") {
   //get username && password
-  $username = $_POST['username'];
+  $email = $_POST['email'];
   $password = $_POST['password'];
 
-  $sql = "SELECT Username, password FROM admin WHERE Username = '$username' AND password = '$password'";
+  $sql = "SELECT * FROM user WHERE email = '$email' AND password = '$password'";
   $result = $conn->query($sql);
 
   if ($result->num_rows > 0) {
     //OK
     if($row = $result->fetch_assoc()) {
-      $_SESSION['login_user'] = $row['Name'];
-      header("location: admin.php");
+      $_SESSION['login_user'] = $row['email']; // Save the email in session
+      if($row['role'] == 'admin') {
+        header("location: products.php"); // Redirect to products.php if user is admin
+      } else {
+        header("location:webshop.php"); // Redirect to webshop.php if user is not admin
+      }
     }
   } else {
-    $error = "Username and Password invalid";
+    $error = "Email and password are invalid";
   }
 
   $conn->close();
 }
-
 
 ?>
 
@@ -45,8 +48,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     <img src="./img/admin1.png" class="admin">
     <h1>Admin</h1>
     <div class="user-box">
-    <input type="text" name="username" required="">
-    <label>Username</label>
+    <input type="text" name="email" required="">
+    <label>Email</label>
     </div>
     <div class="user-box">
     <input type="password" name="password" required="">

@@ -1,4 +1,5 @@
 <?php
+include_once dirname(__FILE__) . '../../auth/auth.php';
 //kết nối 
 require_once "../config/database.php";
 // Create a database connection

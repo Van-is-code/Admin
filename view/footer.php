@@ -9,11 +9,15 @@
     <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="../assets/js/bs-init.js"></script>
     <script src="../assets/js/theme.js"></script>
-   
+    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
      <script src="./js/add.js"></script>
      <script src="./js/edit.js"></script>
      <script src="./js/detail.js"></script>
-
+     <!-- <script>
+  if (typeof jQuery === 'undefined') {
+    document.write('<script src="https://code.jquery.com/jquery-3.6.0.min.js"><\/script>');
+  }
+</script> -->
 </body>
 
 </html>

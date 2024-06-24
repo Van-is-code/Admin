@@ -1,4 +1,5 @@
 <?php
+include_once dirname(__FILE__) . '../../auth/auth.php';
 // Lấy dữ liệu id cần xóa
 $id = $_GET['id'];
 

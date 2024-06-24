@@ -1,20 +1,30 @@
 <?php
-session_start(); // Start the session.
+session_start();
 
-if (!isset($_SESSION['login_user'])) {
-    // If the 'login_user' session variable is not set, redirect to the login page.
-    header("Location: ../AdminLogin.php");
+if (!isset($_SESSION["login_user"])) {
+    // If the user is not logged in, redirect them to the login page.
+    header("Location: Adminlogin.php");
     exit;
 }
 
-// Check the user's access level or role.
-$accessLevel = $_SESSION['access_level'];
+// Check if the logged-in user data is still valid in the database
+$login_user = $_SESSION["login_user"];
 
-// Check if the user has access to the current page.
-if ($accessLevel !== 'admin') {
-    // If the user does not have access, redirect to an error page or display an error message.
-    header("Location: ../AccessDenied.php");
+// Assuming you have a database connection established
+// $connection = mysqli_connect("localhost", "correct_username", "correct_password", "database_name");
+include_once __DIR__ . '/../config/database.php';
+
+// Establish a database connection
+// $connection = mysqli_connect("localhost", "correct_username", "correct_password", "database_name");
+
+// Assuming you have a table named "users" with a column named "username"
+$query = "SELECT * FROM user WHERE email = '$login_user'";
+$result = mysqli_query($conn, $query);
+
+if (mysqli_num_rows($result) == 0) {
+    // If the logged-in user data is not present in the database, redirect them to the login page.
+    header("Location: Adminlogin.php");
     exit;
 }
 
-// The rest of your admin page code goes here.
+// Continue accessing the web content here...

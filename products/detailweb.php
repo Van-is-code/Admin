@@ -1,5 +1,7 @@
 
-<?php require_once "../view/navbar.php"; ?>
+<?php 
+include_once dirname(__FILE__) . '../../auth/auth.php';
+require_once "../view/navbar.php"; ?>
 <!-- <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
     <link rel="stylesheet" href="../assets/fonts/fontawesome-all.min.css">
@@ -95,7 +97,7 @@ if (isset($_GET['id'])) {
                         </div>
                        <div class="row justify-content-center">
                             <div class="col-11 col-sm-10 col-md-8 col-lg-7 col-xl-6 col-xxl-5" style="padding-right: 0px;padding-left: 0px;">
-                                <div class="card clean-card text-center"><img style="width: 80%;" class="card-img-top w-80 d-block" src="../upload/'.$row['prd_image'].'">
+                                <div class="card clean-card text-center"><img style="width: 80%;" class="card-img-top w-80 d-block" src="../upload/products/'.$row['prd_image'].'">
                                     <div class="card-body info">';
 
                     echo '<div class="row">
