@@ -99,6 +99,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 </div>
 
 <div class="mb-3">
+  <label for="formGroupExampleInput2" class="form-label">Category ID:</label>
+  <input type="text" class="form-control" name="category_id" id="category_id" placeholder="Category ID">
+</div>
+
+<div class="mb-3">
   <label for="formGroupExampleInput2" class="form-label">Image 1:</label>
   <input type="file"   class="form-control "  name="image" id="image" placeholder="">
   <div id="image-preview"></div>
@@ -141,23 +146,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
       
-      <div class="mb-3">
-        <label for="formGroupExampleInput2" class="form-label">Category:</label>
-        <input type="text" class="form-control" list="category" name="category_id"> <!-- Use name="category_id" instead of name="brand" -->
-        <datalist id="category" >
-          <?php 
-          require_once "../config/database.php"; // Include the database connection file
-          $sql = "SELECT * FROM category";
-          $result = $conn->query($sql);
-          if ($result->num_rows > 0) {
-        while($row = $result->fetch_assoc()) {
-          echo "<option value=".$row['category_id'].">" .$row['category']."</option>";
-        }
-          }
-          $conn->close();
-          ?>
-        </datalist>
-      </div>
+      
       </form>
       </div>
       </div>
