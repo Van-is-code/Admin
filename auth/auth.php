@@ -18,7 +18,7 @@ include_once __DIR__ . '/../config/database.php';
 // $connection = mysqli_connect("localhost", "correct_username", "correct_password", "database_name");
 
 // Assuming you have a table named "users" with a column named "username"
-$query = "SELECT * FROM user WHERE email = '$login_user'";
+$query = "SELECT * FROM admin WHERE email = '$login_user'";
 $result = mysqli_query($conn, $query);
 
 if (mysqli_num_rows($result) == 0) {

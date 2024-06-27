@@ -24,21 +24,22 @@ include_once dirname(__FILE__) . '/auth/auth.php';
                                     <form class="input-group" action="products.php" method="get">
                                         <input class="bg-light form-control border-0 small"  type="text" name="term" placeholder="Search..." id="searchInput">
                                         <button class="btn btn-primary py-0"type="submit" value="search" ><i class="fas fa-search"></i></button>
+                                        <a href="products.php" id="tooltip" style="padding-left: 1rem;" type="submit"  ><img width="30" height="30" src="https://img.icons8.com/office/30/refresh--v1.png" alt="refresh--v1"/><span class="tooltiptext">reset</span></a>
                                     </form>
                                 </div>
                             </div>
                             <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
                                 <table class="table my-0" id="dataTable">
 
-                                    <thead>
+                                <thead>
                                         <tr>
                                             <th>STT</th>
                                             <th>ProductID</th>
                                             <th>Name</th>
                                             <th>Price</th>
-                                            <th>Category ID</th>
-                                            <th>Time Update</th>
-                                            <!-- <th>Salary</th> -->
+                                            <th>Brand ID</th>
+                                            <th>Update</th>
+                                            <th>Create</th>
                                         </tr>
                                     </thead>
                                   
@@ -47,6 +48,7 @@ include_once dirname(__FILE__) . '/auth/auth.php';
         <?php
         require_once "./config/database.php";
 
+        
         $limit = isset($_GET['limit']) ? $_GET['limit'] : 10; // Number of records to display per page
 
         // Get the current page number from the URL
@@ -61,14 +63,14 @@ include_once dirname(__FILE__) . '/auth/auth.php';
         // Check if there is a search term.
         if (isset($_GET['term'])) {
             $searchTerm = $_GET['term'];
-            $query = "SELECT * FROM products WHERE product_id LIKE ? LIMIT ?, ?";
+            $query = "SELECT * FROM product WHERE product_code LIKE ? LIMIT ?, ?";
             $stmt = $conn->prepare($query);
             $searchTerm = "%$searchTerm%";
             $stmt->bind_param("sii", $searchTerm, $start, $limit);
             $stmt->execute();
             $result = $stmt->get_result();
         } else {
-            $sql = "SELECT * FROM products LIMIT ?, ?";
+            $sql = "SELECT * FROM product LIMIT ?, ?";
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("ii", $start, $limit);
             $stmt->execute();
@@ -81,11 +83,12 @@ include_once dirname(__FILE__) . '/auth/auth.php';
             while ($row = $result->fetch_assoc()) {
                 echo '<tr>';
                 echo '<td>' . $count . '</td>';
-                echo '<td>' . $row['product_id'] . '</td>';
-                echo '<td><img class="rounded-circle me-2" width="30" height="30" src="upload/products/' . $row["prd_image"] . '">' . $row['product_name'] . '</td>';
-                echo '<td>' . $row['prd_price'] . '</td>';
-                echo '<td>' . $row['category_id'] . '</td>';
-                echo '<td>' . $row['time_update'] . '</td>';
+                echo '<td>' . $row['product_code'] . '</td>';
+                echo '<td>' . $row['product_name'] . '</td>';
+                echo '<td>' . $row['price'] . '</td>';
+                echo '<td>' . $row['brand_id'] . '</td>';
+                echo '<td>' . (!empty($row['updated_at']) ? date('H:i j/n/y', strtotime($row['updated_at'])) : '') . '</td>';
+                echo '<td>' . (!empty($row['created_at']) ? date('H:i j/n/y', strtotime($row['created_at'])) : '') . '</td>';
                 echo '<td>
                     <a href="products/edit.web.php?id=' . $row['id'] . '" id="tooltip" class="btn_edit"><img class="icon" width="35" height="35" src="./img/editing.png"> <span class="tooltiptext">Edit</span></a>
                     <a href="products/delete.php?id=' . $row['id'] . '" id="tooltip" class="btn_delete"><img class="icon" width="40" height="40" src="./img/delete.svg"> <span class="tooltiptext">Delete</span></a>
@@ -99,14 +102,14 @@ include_once dirname(__FILE__) . '/auth/auth.php';
         // Calculate the total number of pages
         if (isset($_GET['term'])) {
             $searchTerm = $_GET['term'];
-            $query = "SELECT COUNT(*) AS total FROM products WHERE product_id LIKE ?";
+            $query = "SELECT COUNT(*) AS total FROM product WHERE product_code LIKE ?";
             $stmt = $conn->prepare($query);
             $searchTerm = "%$searchTerm%";
             $stmt->bind_param("s", $searchTerm);
             $stmt->execute();
             $result = $stmt->get_result();
         } else {
-            $sql = "SELECT COUNT(*) AS total FROM products";
+            $sql = "SELECT COUNT(*) AS total FROM product";
             $result = $conn->query($sql);
         }
 

@@ -2,23 +2,19 @@
 <?php
 include_once dirname(__FILE__) . '../../auth/auth.php';
 require_once "../view/navbar.php"; ?>
-<!-- <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
-    <link rel="stylesheet" href="../assets/fonts/fontawesome-all.min.css">
-    <link rel="stylesheet" href="../css/table.css"> -->
+
     <div class="container-fluid" >
 <div class="card shadow">
                         <div class="card-header py-3">
         
-<!-- //                             <p class="text-primary m-0 fw-bold"> echo $row.</p> -->
                         <?php
                         require_once "../config/database.php";
 
-                        // Tạo kết nối cơ sở dữ liệu
-                        $conn = mysqli_connect("localhost", "root", "", "dbwebsite");
-                        if (!$conn) {
-                          die("Connection failed: " . mysqli_connect_error());
-                        }
+                        // // Tạo kết nối cơ sở dữ liệu
+                        // $conn = mysqli_connect("localhost", "root", "", "xmobile");
+                        // if (!$conn) {
+                        //   die("Connection failed: " . mysqli_connect_error());
+                        // }
                         
                        // Kiểm tra xem ID sản phẩm đã được đặt chưa
 if (isset($_GET['id'])) {
@@ -39,9 +35,9 @@ if (isset($_GET['id'])) {
   
                           // Lấy các hàng
                           $row = mysqli_fetch_array($result);
-                          if ($row && !empty($row['user_id'])) {
+                          if ($row && !empty($row['id'])) {
                           
-                            echo '<p class="text-primary m-0 fw-bold">User ID : '.$row['user_id'].'</p>';
+                            echo '<p class="text-primary m-0 fw-bold">User ID : '.$row['user_code'].'</p>';
                           } else {
                             echo 'user not found.';
                           }
@@ -65,11 +61,11 @@ if (isset($_GET['id'])) {
                         <?php
 require_once "../config/database.php";
 
-// Tạo kết nối cơ sở dữ liệu
-$conn = mysqli_connect("localhost", "root", "", "dbwebsite");
-if (!$conn) {
-  die("Connection failed: " . mysqli_connect_error());
-}
+// // Tạo kết nối cơ sở dữ liệu
+// $conn = mysqli_connect("localhost", "root", "", "xmobile");
+// if (!$conn) {
+//   die("Connection failed: " . mysqli_connect_error());
+// }
 
 // Kiểm tra xem ID sản phẩm đã được đặt chưa
 if (isset($_GET['id'])) {
@@ -95,9 +91,9 @@ if (isset($_GET['id'])) {
                             echo '<div class="block-heading" style="padding-top: 15px;">
                            
                         </div>
-                       <div class="row justify-content-center">
+                       <div class="row justify-content-center" style="--bs-gutter-x: -7.5rem;">
                             <div class="col-11 col-sm-10 col-md-8 col-lg-7 col-xl-6 col-xxl-5" style="padding-right: 0px;padding-left: 0px;">
-                                <div class="card clean-card text-center"><img style="width: 80%;" class="card-img-top w-80 d-block" src="../upload/user/'.$row['image'].'">
+                               <div class="card clean-card text-center">
                                     <div class="card-body info">';
 
                     echo '<div class="row">
@@ -105,7 +101,7 @@ if (isset($_GET['id'])) {
                                 <p class="labels"><strong>First Name</strong></p>
                             </div>
                             <div class="col">
-                                <p class="labels">' . $row["first_name"] . '</p>
+                                <p class="labels">' . $row["firstname"] . '</p>
                             </div>
                         </div>';
                     echo '<div class="row" style="margin-top: 10px;">
@@ -113,7 +109,7 @@ if (isset($_GET['id'])) {
                                 <p class="labels"><strong>Last Name</strong></p>
                             </div>
                             <div class="col">
-                                <p class="labels">' . $row["last_name"] . '</p>
+                                <p class="labels">' . $row["lastname"] . '</p>
                             </div>
                         </div>';
                     echo '<div class="row" style="margin-top: 10px;">
@@ -124,14 +120,7 @@ if (isset($_GET['id'])) {
                                 <p class="labels">' . $row["email"] . '</p>
                             </div>
                         </div>';
-                    echo '<div class="row" style="margin-top: 10px;">
-                            <div class="col">
-                                <p class="labels"><strong>Phone</strong></p>
-                            </div>
-                            <div class="col">
-                                <p class="labels">' . $row["phone"] . '</p>
-                            </div>
-                        </div>';
+                   
                     echo '<div class="row" style="margin-top: 10px;">
                             <div class="col">
                                 <p class="labels"><strong>Password</strong><br></p>
@@ -140,55 +129,47 @@ if (isset($_GET['id'])) {
                                 <p class="labels">' . $row["password"] . '</p>
                             </div>
                         </div>';
-                    // echo '<div class="row" style="margin-top: 10px;">
-                    //         <div class="col">
-                    //             <p class="labels"><strong>Sanitización de Suelo</strong><br></p>
-                    //         </div>
-                    //         <div class="col">
-                    //             <p class="labels">' . $row["product_name"] . '</p>
-                    //         </div>
-                    //     </div>';
-                    // echo '<div class="row" style="margin-top: 10px;">
-                    //         <div class="col">
-                    //             <p class="labels"><strong>Sanitización de Asientos</strong><br></p>
-                    //         </div>
-                    //         <div class="col">
-                    //             <p class="labels">No ' . $row["product_name"] . '</p>
-                    //         </div>
-                    //     </div>';
-                    // echo '<div class="row" style="margin-top: 10px;">
-                    //         <div class="col">
-                    //             <p class="labels"><strong>Fecha de Creación</strong></p>
-                    //         </div>
-                    //         <div class="col">
-                    //             <p class="labels">' . $row["product_name"] . '</p>
-                    //         </div>
-                    //     </div>';
-                    // echo '<div class="row" style="margin-top: 10px;">
-                    //         <div class="col">
-                    //             <p class="labels"><strong>Fecha de Edición</strong></p>
-                    //         </div>
-                    //         <div class="col">
-                    //             <p class="labels">' . $row["product_name"] . '</p>
-                    //         </div>
-                    //     </div>';
+                        echo '<div class="row" style="margin-top: 10px;">
+                        <div class="col">
+                            <p class="labels"><strong>Forgot token</strong></p>
+                        </div>
+                        <div class="col">
+                            <p class="labels">' . $row["forgot_token"] . '</p>
+                        </div>
+                    </div>'; echo '<div class="row" style="margin-top: 10px;">
+                    <div class="col">
+                        <p class="labels"><strong>Active token</strong></p>
+                    </div>
+                    <div class="col">
+                        <p class="labels">' . $row["active_token"] . '</p>
+                    </div>
+                    </div>';
+                    echo '<div class="row" style="margin-top: 10px;">
+                    <div class="col">
+                    <p class="labels"><strong>Status</strong></p>
+                    </div>
+                    <div class="col">
+                    <p class="labels">' . ($row["status"] == 0 ? '<span style="color: red;">Chưa kích hoạt</span>' : '<span style="color: green;">Đã kích hoạt</span>') . '</p>
+                  </div>
+                </div>
+                </div>';
                     echo '<div class="row" style="margin-top: 10px;">
                             <div class="col">
                                 <p class="labels"><strong>Time Update</strong></p>
                             </div>
                             <div class="col">
-                                <p class="labels">'.$row["time_update"] .'</p>
+                                <p class="labels">'.$row["updated_at"] .'</p>
                             </div>
                         </div>';
-                    // echo '<div class="row" style="margin-top: 10px;">
-                    //         <div class="col">
-                    //             <p class="labels"><strong>Recipiente y Franela</strong></p>
-                    //         </div>
-                    //         <div class="col">
-                    //             <p class="labels"><i class="fa fa-close" style="color: rgb(251,2,2);"></i></p>
-                    //         </div>
-                    //     </div>';
-                    // echo "<div class='row'>";
+                        echo '<div class="row" style="margin-top: 10px;">
+                        <div class="col">
+                            <p class="labels"><strong>Time Create</strong></p>
+                        </div>
+                        <div class="col">
+                            <p class="labels">'.$row["created_at"] .'</p>
+                        </div>
+                    </div>';
+                 
                         } else {
                           echo 'Product not found.';
                         }
@@ -205,7 +186,7 @@ if (isset($_GET['id'])) {
   </div>
   </div>
   </div>
-  </div>
+  
     <script>
     function backtoproduct() {
         // // Reload the home page 

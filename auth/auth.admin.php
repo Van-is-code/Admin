@@ -5,7 +5,8 @@
 
 
                 <div class="container-fluid">
-                    <div class="card shadow">
+                    <div class="card shadow" style="--bs-card-spacer-y:10rem; padding-bottom: 17.5rem;
+    padding-top: 0.5rem;">
                         <div class="card-header py-3">
                             <p class="text-primary m-0 fw-bold">Admin</p>
                         </div>
@@ -31,7 +32,7 @@
                                         echo '<script>window.location.href = "../admin.php";</script>';
                                         exit();
                                     } else {
-                                        echo '<p class="error" style="text-align: center; font-size: 90%; color: red; margin-top: 1%;">Wrong password<script>setTimeout(function(){ $(".error").fadeOut(); }, 3000);</script></p>';
+                                        echo '<p class="error" style="text-align: center; font-size: 90%; color: red; margin-top: 1%; margin-left: 40%;">Wrong password<script>setTimeout(function(){ $(".error").fadeOut(); }, 3000);</script></p>';
                                     }
                                 } else {
                                     // Check if password is already stored in session storage and not expired
@@ -46,10 +47,8 @@
                                 ?>
                             </div>
                         </form>
-
-                       
+                       </div>
                         </div>
                     </div>
-                </div>
-            </div>
+           
             <?php require_once ("../view/footer.php");?>

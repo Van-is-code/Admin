@@ -10,18 +10,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
   $email = $_POST['email'];
   $password = $_POST['password'];
 
-  $sql = "SELECT * FROM user WHERE email = '$email' AND password = '$password'";
+  $sql = "SELECT * FROM admin WHERE email = '$email' AND password = '$password'";
   $result = $conn->query($sql);
 
   if ($result->num_rows > 0) {
     //OK
     if($row = $result->fetch_assoc()) {
       $_SESSION['login_user'] = $row['email']; // Save the email in session
-      if($row['role'] == 'admin') {
+     
         header("location: products.php"); // Redirect to products.php if user is admin
-      } else {
-        header("location:webshop.php"); // Redirect to webshop.php if user is not admin
-      }
+      
     }
   } else {
     $error = "Email and password are invalid";

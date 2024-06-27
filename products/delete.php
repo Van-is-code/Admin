@@ -7,10 +7,21 @@ $id = $_GET['id'];
 require_once "../config/database.php";
 
 // Câu lệnh sql
-$xoa = "DELETE FROM products WHERE id = $id";
+$xoa_image = "DELETE FROM image WHERE product_id = $id";
+$xoa_product = "DELETE FROM product WHERE id = $id";
 
 // Thực thi câu lệnh sql
-mysqli_query($conn, $xoa);
+if (mysqli_query($conn, $xoa_image) && mysqli_query($conn, $xoa_product)) {
+    // Redirect back to products.php
+    header("Location: ../products.php");
+    exit;
+} else {
+    // Báo lỗi nếu không thể xóa
+    echo "Error: " . mysqli_error($conn);
+}
+
+// Thực thi câu lệnh sql
+// mysqli_query($conn, $xoa);
 
 // Đóng kết nối
 $conn->close();

@@ -2,8 +2,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$datbase = "dbwebsite";
-
+$datbase = "xmouse";
 // Create connection
 $conn = new mysqli($servername, $username, $password, $datbase);
 

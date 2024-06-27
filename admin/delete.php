@@ -7,7 +7,7 @@ $id = $_GET['id'];
 require_once "../config/database.php";
 
 // Câu lệnh sql
-$xoa = "DELETE FROM user WHERE id = $id";
+$xoa = "DELETE FROM admin WHERE id = $id";
 
 // Thực thi câu lệnh sql
 mysqli_query($conn, $xoa);

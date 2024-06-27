@@ -3,8 +3,8 @@ function addproduct() {
     window.location.href = "../products/add.web.php";
 }
 
-function addCategory() {
-    window.location.href = "../category/add.web.php";
+function addBrand() {
+    window.location.href = "../brand/add.web.php";
 }
 
 function addUser() {
